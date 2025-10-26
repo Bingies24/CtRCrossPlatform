@@ -11,5 +11,8 @@ Works on:
 Linux is on the way, textures are giving me a hard time.
 
 
+
+## Disclaimer
+
 Cut the Rope, Feed with Candy, Nommies, Om Nom and ZeptoLab are trademarks of ZeptoLab UK Limited. Anyone who has or is working on this are not associated with ZeptoLab in any way.
 
