@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtRMain", "CtRMain\CtRMain.csproj", "{A30B07FF-867E-4645-BBAE-D835D3B62CCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtRGL", "CtRGL\CtRGL.csproj", "{9BCDB35B-67D7-43A0-BC7E-105322773D5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A30B07FF-867E-4645-BBAE-D835D3B62CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30B07FF-867E-4645-BBAE-D835D3B62CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BCDB35B-67D7-43A0-BC7E-105322773D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BCDB35B-67D7-43A0-BC7E-105322773D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BCDB35B-67D7-43A0-BC7E-105322773D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BCDB35B-67D7-43A0-BC7E-105322773D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {928DB0B7-D4F3-4994-B2FB-ABAFFEBE17C3}
+	EndGlobalSection
+EndGlobal
