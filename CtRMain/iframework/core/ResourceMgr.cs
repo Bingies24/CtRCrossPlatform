@@ -181,10 +181,10 @@ namespace CutTheRope.iframework.core
 			Texture2D.setDefaultAlphaPixelFormat((Texture2D.Texture2DPixelFormat)defaultAlphaPixelFormat);
             Debug.WriteLine(text);
 			Texture2D texture2D = new Texture2D().initWithPath(text, true);
-			//if (texture2D == null)
-			//{
-			//	throw new Exception("texture not found: " + text);
-			//}
+			if (texture2D == null)
+			{
+				throw new Exception("texture not found: " + text);
+			}
 			Texture2D.setDefaultAlphaPixelFormat(Texture2D.kTexture2DPixelFormat_Default);
 			if (isWvga)
 			{
