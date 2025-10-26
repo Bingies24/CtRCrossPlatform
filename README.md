@@ -4,7 +4,7 @@ This is a version of the Cut the Rope Decompilation which can be found on [Cut t
 
 
 
-###### Works on:
+### Works on:
 
 * Windows
 
@@ -12,20 +12,20 @@ Linux is on the way, textures are giving me a hard time.
 
 
 
-###### Compiles to:
+### Compiles to:
 
 * Windows
 * Linux
 
 
 
-##### To-do
+## To-do
 
 Implement a video solution
 
 
 
-##### Disclaimer
+## Disclaimer
 
 Cut the Rope, Feed with Candy, Nommies, Om Nom and ZeptoLab are trademarks of ZeptoLab UK Limited. Anyone who has or is working on this are not associated with ZeptoLab in any way.
 
