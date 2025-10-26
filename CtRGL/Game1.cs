@@ -240,7 +240,7 @@ namespace CutTheRope
 			}
 			else
 			{
-				base.IsFixedTimeStep = false;
+				base.IsFixedTimeStep = true; // Originally false.
 			}
 			keyboardStateXna = Keyboard.GetState();
 			if ((IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.F11) || ((IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt)) && IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter))) && !UseWindowMode_TODO_ChangeFullScreenResolution)
