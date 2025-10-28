@@ -1,8 +1,10 @@
 .vs/
 CtRMain/.config/
+CtRMain/.vscode/
 CtRMain/bin/
 CtRMain/obj/
-CtRGL/.config
+CtRGL/.config/
+CtRGL/.vscode/
 CtRGL/bin/
 CtRGL/obj/
 *.user
