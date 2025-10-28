@@ -60,7 +60,7 @@ namespace CutTheRope
 		public Game1()
 		{
 			Global.XnaGame = this;
-			base.Content.RootDirectory = "Content";
+			base.Content.RootDirectory = "content";
 			Global.GraphicsDeviceManager = new GraphicsDeviceManager(this);
 			try
 			{

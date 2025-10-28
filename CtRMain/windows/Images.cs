@@ -15,7 +15,7 @@ namespace CutTheRope.windows
 			_contentManagers.TryGetValue(imgName, out value);
 			if (value == null)
 			{
-				value = new ContentManager(Global.XnaGame.Services, "Content");
+				value = new ContentManager(Global.XnaGame.Services, "content");
 				_contentManagers.Add(imgName, value);
 			}
 			return value;
