@@ -1,13 +1,13 @@
-# Cut the Rope ~~Peak Edition~~ Cross Platform Decompilation
+# Cut the Rope Cross Platform Decompilation
 
-This is a version of the Cut the Rope Decompilation which can be found on [Cut the Rope Home](https://ctrhome.github.io) (specifically the original unpatched version on the Discord server) that has been freed from the clutches of WinForms for future modding.
+This is a better version of the Cut the Rope Decompilation which can be found on [Cut the Rope Home](https://ctrhome.github.io) (specifically the original unpatched version on the Discord server) that has been freed from the clutches of WinForms for future modding.
 
 
 
 ### Compiles on:
 
-* Windows — Windows and Linux, via Visual Studio or build\_windows.bat.
-* Linux — Linux, via build\_linux.sh. Windows probably builds too but I haven't tested that.
+* Windows — Windows and Linux, via Visual Studio or build\_windows.bat in CtRGL.
+* Linux — Windows and Linux, via build\_linux.sh in CtRGL.
 
 
 
