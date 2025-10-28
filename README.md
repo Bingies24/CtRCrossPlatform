@@ -6,15 +6,16 @@ This is a better version of the Cut the Rope Decompilation which can be found on
 
 ### Compiles on:
 
-* Windows — Windows and Linux, via Visual Studio or build\_windows.bat in CtRGL.
-* Linux — Windows and Linux, via build\_linux.sh in CtRGL.
+* Windows — Windows and Linux, via Visual Studio or build\_windows.bat.
+* Linux — Windows (probably works) and Linux, via build\_linux.sh.
 
 
 
 ## To-do
 
-Implement a video player, preferably something that is light on size, CPU and GPU load, and not something tha uses ffmpeg.
+Fix the cursor clicking bug on fading screens.
 
+Implement a video player, preferably something that is light on size (so no ffmpeg), CPU and GPU load.
 
 
 ## Disclaimer
