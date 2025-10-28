@@ -1,2 +1,2 @@
 #!/bin/sh
-dotnet publish -c Release --runtime linux-x64 --self-contained --output ./bin/Publish/linux-x64
+dotnet publish -p:PublishProfile=Linux64 --runtime linux-x64
