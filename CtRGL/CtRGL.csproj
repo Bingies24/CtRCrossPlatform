@@ -11,8 +11,17 @@
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AssemblyName>CutTheRope</AssemblyName>
-    <Authors>$(Company)</Authors>
+    <AssemblyTitle>Cut The Rope</AssemblyTitle>
+    <Product>Cut The Rope</Product>
+    <ProductName>$(Product)</ProductName>
     <Company>ZeptoLab</Company>
+    <Authors>$(Company)</Authors>
+    <Copyright>Copyright ©  2012</Copyright>
+    <Version>1.0.0.33</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <ProductVersion>$(Version)</ProductVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
