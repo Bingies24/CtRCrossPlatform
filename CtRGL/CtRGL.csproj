@@ -4,7 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <AppendRuntimeIdentifierToOutputPath>true</AppendRuntimeIdentifierToOutputPath>
     <RollForward>Major</RollForward>
-    <TieredCompilation>true</TieredCompilation>
+    <TieredCompilation>false</TieredCompilation>
+    <PublishReadyToRun>false</PublishReadyToRun>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup>
