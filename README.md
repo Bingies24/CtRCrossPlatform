@@ -4,24 +4,16 @@ This is a version of the Cut the Rope Decompilation which can be found on [Cut t
 
 
 
-### Works on:
+### Compiles on:
 
-* Windows
-
-Linux is on the way, textures are giving me a hard time.
-
-
-
-### Compiles to:
-
-* Windows
-* Linux
+* Windows — Windows and Linux, via Visual Studio or build\_windows.bat.
+* Linux — Linux, via build\_linux.sh. Windows probably builds too but I haven't tested that.
 
 
 
 ## To-do
 
-Implement a video solution
+Implement a video player, preferably something that is light on size, CPU and GPU load, and not something tha uses ffmpeg.
 
 
 
