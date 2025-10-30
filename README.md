@@ -13,9 +13,8 @@ This is a better version of the Cut the Rope Decompilation which can be found on
 
 ## To-do
 
-* Implement a video player, preferably something that is light on size (so no ffmpeg), CPU and GPU load.
-* Redo game and window scaling.
-* Add fullscreen back.
+* Redo game and window scaling and add fullscreen back.
+* Implement PL_MPEG as a video player.
 * Add touchscreen support.
 * Make an Android version.
 
