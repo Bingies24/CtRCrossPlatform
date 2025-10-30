@@ -14,6 +14,7 @@ This is a better version of the Cut the Rope Decompilation which can be found on
 ## To-do
 
 * Redo game and window scaling and add fullscreen back.
+* Add background looping.
 * Implement PL_MPEG as a video player.
 * Add touchscreen support.
 * Make an Android version.
