@@ -104,11 +104,11 @@ namespace CutTheRope
 			}
 		}
 
-		public void SetCursor(Texture2D cursorTexture, MouseState mouseState, int hotspotX, int hotspotY)
+		public void SetCursor(Texture2D cursorTexture, Microsoft.Xna.Framework.Input.MouseCursor cursorMouseCursor, MouseState mouseState)
 		{
 			if (base.Window.ClientBounds.Contains(base.Window.ClientBounds.X + mouseState.X, base.Window.ClientBounds.Y + mouseState.Y) && _cursorLast != cursorTexture)
 			{
-                Mouse.SetCursor(Microsoft.Xna.Framework.Input.MouseCursor.FromTexture2D(cursorTexture, hotspotX, hotspotY));
+				Mouse.SetCursor(cursorMouseCursor);
                 _cursorLast = cursorTexture;
 			}
 		}

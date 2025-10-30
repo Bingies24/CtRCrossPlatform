@@ -13,7 +13,6 @@ This is a better version of the Cut the Rope Decompilation which can be found on
 
 ## To-do
 
-* Fix the cursor clicking bug on fading screens. The problem is the function "initFromPixels" in "iframework/visual/Texture2D.cs" loads the cursor from memory(?) instead of the screen.
 * Implement a video player, preferably something that is light on size (so no ffmpeg), CPU and GPU load.
 * Redo game and window scaling.
 * Add fullscreen back.

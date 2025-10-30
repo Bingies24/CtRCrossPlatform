@@ -15,6 +15,10 @@ namespace CutTheRope.windows
 
 		private Texture2D _cursorActive;
 
+		private Microsoft.Xna.Framework.Input.MouseCursor _cursorMouseCursor;
+
+		private Microsoft.Xna.Framework.Input.MouseCursor _cursorActiveMouseCursor;
+
 		private MouseState _mouseStateTranformed;
 
 		private MouseState _mouseStateOriginal;
@@ -37,7 +41,9 @@ namespace CutTheRope.windows
 		{
 			_cursor = cm.Load<Texture2D>("cursor");
 			_cursorActive = cm.Load<Texture2D>("cursor_active");
-		}
+            _cursorMouseCursor = Microsoft.Xna.Framework.Input.MouseCursor.FromTexture2D(_cursor, 0, 1);
+            _cursorActiveMouseCursor = Microsoft.Xna.Framework.Input.MouseCursor.FromTexture2D(_cursorActive, 1, 1);
+        }
 
 		public static MouseState GetMouseState()
 		{
@@ -55,11 +61,11 @@ namespace CutTheRope.windows
 			_mouseStateOriginal = Global.XnaGame.GetMouseState();
 			if (_mouseStateOriginal.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
 			{
-				Global.XnaGame.SetCursor(_cursorActive, _mouseStateOriginal, 1, 1);
+				Global.XnaGame.SetCursor(_cursorActive, _cursorActiveMouseCursor, _mouseStateOriginal);
 			}
 			else
 			{
-				Global.XnaGame.SetCursor(_cursor, _mouseStateOriginal, 0, 1);
+				Global.XnaGame.SetCursor(_cursor, _cursorMouseCursor, _mouseStateOriginal);
 			}
 			MouseState mouseStateTranformed = TransformMouseState(_mouseStateOriginal);
 			TouchLocation item = default(TouchLocation);
