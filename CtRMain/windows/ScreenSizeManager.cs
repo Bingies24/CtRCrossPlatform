@@ -9,8 +9,6 @@ namespace CutTheRope.windows
 {
 	internal class ScreenSizeManager
 	{
-		public const int MIN_WINDOW_WIDTH = 800;
-
 		private bool _isFullScreen;
 
 		private Microsoft.Xna.Framework.Rectangle _windowRect;
@@ -27,8 +25,6 @@ namespace CutTheRope.windows
 
 		private bool _skipChanges;
 
-		private bool _fullScreenCropWidth = true;
-
 		public static int MAX_WINDOW_WIDTH
 		{
 			get
@@ -41,7 +37,19 @@ namespace CutTheRope.windows
 			}
 		}
 
-		public int WindowWidth
+		public static int MAX_WINDOW_HEIGHT
+		{
+			get
+			{
+                if (Global.GraphicsDeviceManager.GraphicsProfile == GraphicsProfile.HiDef)
+				{
+					return 4096;
+				}
+				return 2048;
+            }
+        }
+
+        public int WindowWidth
 		{
 			get
 			{
@@ -125,18 +133,6 @@ namespace CutTheRope.windows
 			}
 		}
 
-		public bool FullScreenCropWidth
-		{
-			set
-			{
-				if (_fullScreenCropWidth != value)
-				{
-					_fullScreenCropWidth = value;
-					UpdateScaledView();
-				}
-			}
-		}
-
 		public double WidthAspectRatio
 		{
 			get
@@ -172,30 +168,35 @@ namespace CutTheRope.windows
 			_gameAspectRatio = (double)gameHeight / (double)gameWidth;
 		}
 
-		public void Init(DisplayMode displayMode, int windowWidth, bool isFullScreen)
+		public void Init(DisplayMode displayMode, int windowWidth, int windowHeight, bool isFullScreen)
 		{
 			FullScreenRectChanged(displayMode);
-			int num = ((windowWidth > 0) ? windowWidth : (displayMode.Width - 100));
-			if (num < 800)
+			int width = ((windowWidth > 0) ? windowWidth : (displayMode.Width - 100));
+            int height = ((windowHeight > 0) ? windowHeight : (displayMode.Height - 100));
+            if (width > MAX_WINDOW_WIDTH)
 			{
-				num = 800;
+				width = MAX_WINDOW_WIDTH;
 			}
-			if (num > MAX_WINDOW_WIDTH)
+            if (height > MAX_WINDOW_HEIGHT)
+            {
+                height = MAX_WINDOW_HEIGHT;
+            }
+            if (width > displayMode.Width)
 			{
-				num = MAX_WINDOW_WIDTH;
+				width = displayMode.Width;
 			}
-			if (num > displayMode.Width)
-			{
-				num = displayMode.Width;
-			}
-			WindowRectChanged(new Microsoft.Xna.Framework.Rectangle(0, 0, num, ScaledGameHeight(num)));
+            if (height > displayMode.Height)
+            {
+                height = displayMode.Height;
+            }
+            WindowRectChanged(new Microsoft.Xna.Framework.Rectangle(0, 0, width, height));
 			if (isFullScreen)
 			{
 				ToggleFullScreen();
 			}
 			else
 			{
-				ApplyWindowSize(WindowWidth);
+				ApplyWindowSize(WindowWidth, WindowHeight);
 			}
 		}
 
@@ -217,18 +218,9 @@ namespace CutTheRope.windows
 			}
 			if (_isFullScreen)
 			{
-				if (_fullScreenRect.Width >= _fullScreenRect.Height)
-				{
-					int num = (_fullScreenCropWidth ? _fullScreenRect.Height : ScaledGameHeight(_fullScreenRect.Width));
-					int num2 = (_fullScreenCropWidth ? ScaledGameWidth(num) : _fullScreenRect.Width);
-					_scaledViewRect = new Microsoft.Xna.Framework.Rectangle((_fullScreenRect.Width - num2) / 2, (_fullScreenRect.Height - num) / 2, num2, num);
-				}
-				else
-				{
-					int num3 = (_fullScreenCropWidth ? ((int)((float)_fullScreenRect.Width / 5f * 4f)) : ScaledGameHeight(_fullScreenRect.Width));
-					int num4 = (_fullScreenCropWidth ? ScaledGameWidth(num3) : _fullScreenRect.Width);
-					_scaledViewRect = new Microsoft.Xna.Framework.Rectangle((_fullScreenRect.Width - num4) / 2, (_fullScreenRect.Height - num3) / 2, num4, num3);
-				}
+				int num = _fullScreenRect.Height;
+				int num2 = ScaledGameWidth(num);
+				_scaledViewRect = new Microsoft.Xna.Framework.Rectangle((_fullScreenRect.Width - num2) / 2, (_fullScreenRect.Height - num) / 2, num2, num);
 			}
 			else
 			{
@@ -236,11 +228,11 @@ namespace CutTheRope.windows
 			}
 		}
 
-		public void ApplyWindowSize(int width)
+		public void ApplyWindowSize(int width, int height)
 		{
 			GraphicsDeviceManager graphicsDeviceManager = Global.GraphicsDeviceManager;
 			graphicsDeviceManager.PreferredBackBufferWidth = width;
-			graphicsDeviceManager.PreferredBackBufferHeight = ScaledGameHeight(width);
+			graphicsDeviceManager.PreferredBackBufferHeight = height;
 			graphicsDeviceManager.ApplyChanges();
 			WindowRectChanged(new Microsoft.Xna.Framework.Rectangle(0, 0, graphicsDeviceManager.PreferredBackBufferWidth, graphicsDeviceManager.PreferredBackBufferHeight));
 		}
@@ -249,8 +241,6 @@ namespace CutTheRope.windows
 		{
 			_skipChanges = true;
 			GraphicsDeviceManager graphicsDeviceManager = Global.GraphicsDeviceManager;
-			bool fullScreenCropWidth = _fullScreenCropWidth;
-			FullScreenCropWidth = true;
 			int preferredBackBufferWidth = (IsFullScreen ? _windowRect.Width : _fullScreenRect.Width);
 			int preferredBackBufferHeight = (IsFullScreen ? _windowRect.Height : _fullScreenRect.Height);
 			graphicsDeviceManager.PreferredBackBufferWidth = preferredBackBufferWidth;
@@ -262,7 +252,6 @@ namespace CutTheRope.windows
 			Save();
 			global::CutTheRope.iframework.core.Application.sharedCanvas().reshape();
 			global::CutTheRope.iframework.core.Application.sharedRootController().fullscreenToggled(IsFullScreen);
-			FullScreenCropWidth = fullScreenCropWidth;
 		}
 
 		public void FixWindowSize(Microsoft.Xna.Framework.Rectangle newWindowRect)
@@ -277,28 +266,33 @@ namespace CutTheRope.windows
 			{
 				try
 				{
-					int num = graphicsDeviceManager.PreferredBackBufferWidth;
-					if (newWindowRect.Width != WindowWidth)
+					int width = graphicsDeviceManager.PreferredBackBufferWidth;
+                    int height = graphicsDeviceManager.PreferredBackBufferHeight;
+                    if (newWindowRect.Width != WindowWidth)
 					{
-						num = newWindowRect.Width;
+						width = newWindowRect.Width;
 					}
-					else if (newWindowRect.Height != WindowHeight)
+					if (newWindowRect.Height != WindowHeight)
 					{
-						num = ScaledGameWidth(newWindowRect.Height);
+                        width = newWindowRect.Height;
 					}
-					if (num < 800 || ScaledGameHeight(num) < ScaledGameHeight(800))
+					if (width > MAX_WINDOW_WIDTH)
 					{
-						num = 800;
+                        width = MAX_WINDOW_WIDTH;
 					}
-					if (num > MAX_WINDOW_WIDTH)
+					if (height > MAX_WINDOW_HEIGHT)
 					{
-						num = MAX_WINDOW_WIDTH;
+						height = MAX_WINDOW_HEIGHT;
 					}
-					if (num > ScreenWidth)
+					if (width > ScreenWidth)
 					{
-						num = ScreenWidth;
+                        width = ScreenWidth;
 					}
-					ApplyWindowSize(num);
+					if (height > ScreenHeight)
+					{
+						height = ScreenHeight;
+					}
+					ApplyWindowSize(width, height);
 				}
 				catch (Exception)
 				{

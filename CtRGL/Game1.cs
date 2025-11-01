@@ -37,9 +37,7 @@ namespace CutTheRope
 
 		private Microsoft.Xna.Framework.Input.ButtonState mouseState_XButton2;
 
-		private bool UseWindowMode_TODO_ChangeFullScreenResolution = true; // some bug in startup fullscrenn (NulRefrenceExcepton)
-
-		private Texture2D _cursorLast;
+		private Texture2D _cursorTextureLast;
 
 		private Dictionary<Microsoft.Xna.Framework.Input.Keys, bool> keyState = new Dictionary<Microsoft.Xna.Framework.Input.Keys, bool>();
 
@@ -90,10 +88,6 @@ namespace CutTheRope
 		private void GraphicsDeviceManager_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
 		{
 			e.GraphicsDeviceInformation.PresentationParameters.DepthStencilFormat = DepthFormat.None;
-			if (e.GraphicsDeviceInformation.Adapter.CurrentDisplayMode.Width > ScreenSizeManager.MAX_WINDOW_WIDTH || e.GraphicsDeviceInformation.Adapter.CurrentDisplayMode.Height > ScreenSizeManager.MAX_WINDOW_WIDTH)
-			{
-				UseWindowMode_TODO_ChangeFullScreenResolution = true;
-			}
 		}
 
 		private void form_Resize(object sender, EventArgs e)
@@ -106,10 +100,10 @@ namespace CutTheRope
 
 		public void SetCursor(Texture2D cursorTexture, Microsoft.Xna.Framework.Input.MouseCursor cursorMouseCursor, MouseState mouseState)
 		{
-			if (base.Window.ClientBounds.Contains(base.Window.ClientBounds.X + mouseState.X, base.Window.ClientBounds.Y + mouseState.Y) && _cursorLast != cursorTexture)
+			if (base.Window.ClientBounds.Contains(base.Window.ClientBounds.X + mouseState.X, base.Window.ClientBounds.Y + mouseState.Y) && _cursorTextureLast != cursorTexture)
 			{
 				Mouse.SetCursor(cursorMouseCursor);
-                _cursorLast = cursorTexture;
+                _cursorTextureLast = cursorTexture;
 			}
 		}
 
@@ -149,18 +143,12 @@ namespace CutTheRope
 			SoundMgr.SetContentManager(base.Content);
 			OpenGL.Init();
 			Global.MouseCursor.Load(base.Content);
-			if (UseWindowMode_TODO_ChangeFullScreenResolution)
-			{
-				base.Window.AllowUserResizing = true;
-			}
-			else
-			{
-				base.Window.AllowUserResizing = true;
-			}
+			base.Window.AllowUserResizing = true;
 			Preferences._loadPreferences();
-			int num = Preferences._getIntForKey("PREFS_WINDOW_WIDTH");
-			bool isFullScreen = !UseWindowMode_TODO_ChangeFullScreenResolution && (num <= 0 || Preferences._getBooleanForKey("PREFS_WINDOW_FULLSCREEN"));
-			Global.ScreenSizeManager.Init(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode, num, isFullScreen);
+			int storedWidth = Preferences._getIntForKey("PREFS_WINDOW_WIDTH");
+            int storedHeight = Preferences._getIntForKey("PREFS_WINDOW_WIDTH");
+            bool isFullScreen = storedWidth <= 0 || Preferences._getBooleanForKey("PREFS_WINDOW_FULLSCREEN");
+			Global.ScreenSizeManager.Init(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode, storedWidth, storedHeight, isFullScreen);
 			base.Window.ClientSizeChanged += Window_ClientSizeChanged;
 			CtrRenderer.Java_com_zeptolab_ctr_CtrRenderer_nativeInit(GetSystemLanguage());
 			CtrRenderer.onSurfaceCreated();
@@ -243,7 +231,7 @@ namespace CutTheRope
 				base.IsFixedTimeStep = true; // Originally false.
 			}
 			keyboardStateXna = Keyboard.GetState();
-			if ((IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.F11) || ((IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt)) && IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter))) && !UseWindowMode_TODO_ChangeFullScreenResolution)
+			if ((IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.F11) || ((IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) || IsKeyDown(Microsoft.Xna.Framework.Input.Keys.RightAlt)) && IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter))))
 			{
 				Global.ScreenSizeManager.ToggleFullScreen();
 				Thread.Sleep(500);
@@ -298,7 +286,6 @@ namespace CutTheRope
 			}
 			Global.GraphicsDevice.SetRenderTarget(null);
 			base.GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Black);
-			Global.ScreenSizeManager.FullScreenCropWidth = false;
 			Global.ScreenSizeManager.ApplyViewportToDevice();
 			Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle(0, 0, base.GraphicsDevice.Viewport.Width, base.GraphicsDevice.Viewport.Height);
 			Global.SpriteBatch.Begin();
@@ -319,7 +306,6 @@ namespace CutTheRope
 				}
 				return;
 			}
-			Global.ScreenSizeManager.FullScreenCropWidth = true;
 			Global.ScreenSizeManager.ApplyViewportToDevice();
 			_DrawMovie = false;
 			CtrRenderer.onDrawFrame();
