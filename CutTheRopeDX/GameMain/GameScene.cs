@@ -1006,7 +1006,7 @@ namespace CutTheRopeDX.GameMain
         /// <summary>
         /// The HUD star animations that show collected stars.
         /// </summary>
-        private readonly Animation[] hudStar = new Animation[3];
+        private Animation[] hudStar;
 
         /// <summary>
         /// The gameplay camera.
@@ -1225,6 +1225,11 @@ namespace CutTheRopeDX.GameMain
         /// The Y value for the global gravity.
         /// </summary>
         public float globalGravityY;
+
+        /// <summary>
+        /// The amount of stars the current level has to be fully beat.
+        /// </summary>
+        public int starCount;
 
         /// <summary>
         /// Earth animation images used by gravity-switch levels.

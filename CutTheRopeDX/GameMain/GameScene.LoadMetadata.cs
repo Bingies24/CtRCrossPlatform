@@ -52,7 +52,7 @@ namespace CutTheRopeDX.GameMain
     internal sealed partial class GameScene
     {
         /// <summary>
-        /// Loads all level metadata from XML in a single pass
+        /// Loads all level metadata (besides objectives) from XML in a single pass
         /// Extracts map dimensions, Game design settings, and candy positions
         /// </summary>
         /// <param name="mapNode">Root XML node for the current map.</param>
@@ -225,6 +225,31 @@ namespace CutTheRopeDX.GameMain
                     connectorHead, connectorHead.pos.X, connectorHead.pos.Y,
                     connectorTail, connectorTail.pos.X, connectorTail.pos.Y,
                     candiesConnectedLength);
+            }
+        }
+
+        // <summary>
+        // Loads objectives level metadata from XML in a single pass
+        // </summary>
+        /// <param name="mapNode">Root XML node for the current map.</param>
+        private void LoadObjectivesMetadata(XElement mapNode)
+        {
+            starCount = 3;
+
+            // Single pass through XML metadata nodes
+            foreach (XElement xmlnode in mapNode.Elements())
+            {
+                foreach (XElement item2 in xmlnode.Elements())
+                {
+                    switch (item2.Name.LocalName)
+                    {
+                        case "objectives":
+                            starCount = (item2.Attribute("starCount") != null) ? ParseIntOrZero(item2.Attribute("starCount")?.Value) : starCount;
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
     }

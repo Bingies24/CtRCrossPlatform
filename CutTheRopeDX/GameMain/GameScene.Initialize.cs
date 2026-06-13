@@ -13,6 +13,28 @@ namespace CutTheRopeDX.GameMain
         /// </summary>
         private void InitializeGameState()
         {
+            if (hudStar != null)
+            {
+                for (int i = 0; i < hudStar.Length; i++)
+                {
+                    RemoveChild(hudStar[i]);
+                }
+            }
+            hudStar = new Animation[starCount];
+            for (int i = 0; i < starCount; i++)
+            {
+                const int HudUiStarFirstQuad = 1;
+                const int HudUiStarLastQuad = 11;
+                hudStar[i] = Animation.Animation_createWithResID(Resources.Img.HudUi);
+                hudStar[i].SetDrawQuad(HudUiStarFirstQuad);
+                _ = hudStar[i].AddAnimationDelayLoopFirstLast(0.05f, Timeline.LoopType.TIMELINE_NO_LOOP, HudUiStarFirstQuad, HudUiStarLastQuad);
+                hudStar[i].SetPauseAtIndexforAnimation(10, 0);
+                int starSize = hudStar[i].width;
+                hudStar[i].anchor = 18;
+                hudStar[i].x = (starSize * i) + (starSize / 2) + Canvas.xOffsetScaled;
+                hudStar[i].y = hudStar[i].height / 2;
+                _ = AddChild(hudStar[i]);
+            }
             CTRSoundMgr.EnableLoopedSounds(true);
             aniPool.RemoveAllChilds();
             particlesAniPool.RemoveAllChilds();
@@ -240,7 +262,7 @@ namespace CutTheRopeDX.GameMain
         /// </summary>
         private void InitializeHUDStars()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < starCount; i++)
             {
                 Timeline timeline2 = hudStar[i].GetCurrentTimeline();
                 timeline2?.StopTimeline();

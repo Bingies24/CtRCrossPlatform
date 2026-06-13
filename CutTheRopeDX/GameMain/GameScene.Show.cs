@@ -15,13 +15,14 @@ namespace CutTheRopeDX.GameMain
         /// <inheritdoc />
         public override void Show()
         {
+            CTRRootController cTRRootController = (CTRRootController)Application.SharedRootController();
+            XElement map = cTRRootController.GetMap();
+            LoadObjectivesMetadata(map);
+
             // Initialize game state and load level data
             InitializeGameState();
             InitializeCandyObjects();
             InitializeHUDStars();
-
-            CTRRootController cTRRootController = (CTRRootController)Application.SharedRootController();
-            XElement map = cTRRootController.GetMap();
 
             float mapScale = 3f;
             float mapOffsetY = 0f;
@@ -58,7 +59,7 @@ namespace CutTheRopeDX.GameMain
             tummyTeasers = 0;
             starsCollected = 0;
             // Update RPC with current level info (on start/restart)
-            Game1.RPC?.SetLevelPresence(cTRRootController.GetPack(), cTRRootController.GetLevel(), starsCollected, false, levelName);
+            Game1.RPC?.SetLevelPresence(cTRRootController.GetPack(), cTRRootController.GetLevel(), starsCollected, starCount, false, levelName);
             candyBubble = null;
             candyBubbleL = null;
             candyBubbleR = null;
