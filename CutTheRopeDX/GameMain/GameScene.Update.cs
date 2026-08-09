@@ -723,7 +723,7 @@ namespace CutTheRopeDX.GameMain
                         collectingCandy?.candyBlink?.PlayTimeline(1);
                         starsCollected++;
                         // Update RPC with new star count
-                        Game1.RPC?.SetLevelPresence(cTRRootController.GetPack(), cTRRootController.GetLevel(), starsCollected, false, levelName);
+                        Game1.RPC?.SetLevelPresence(cTRRootController.GetPack(), cTRRootController.GetLevel(), starsCollected, starCount, false, levelName);
                         if (starsCollected <= hudStar.Length)
                         {
                             hudStar[starsCollected - 1].PlayTimeline(0);
@@ -739,7 +739,7 @@ namespace CutTheRopeDX.GameMain
                         _ = aniPool.AddChild(animation2);
                         conveyors.Remove(star);
                         _ = stars.Remove(star);
-                        CTRSoundMgr.PlaySound(starsCollected switch
+                        CTRSoundMgr.PlaySound((starsCollected - ((starsCollected - 1) / 3 * 3)) switch
                         {
                             1 => Resources.Snd.Star1,
                             2 => Resources.Snd.Star2,

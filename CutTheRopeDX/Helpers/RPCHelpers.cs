@@ -125,12 +125,13 @@ namespace CutTheRopeDX.Helpers
         /// </summary>
         /// <param name="pack">Zero-based pack index.</param>
         /// <param name="level">Zero-based level index within the pack.</param>
-        /// <param name="stars">Number of stars collected (0-3).</param>
+        /// <param name="stars">Number of stars collected.</param>
+        /// <param name="starCount">Number of stars needed for full level completion.</param>
         /// <param name="isWon">Whether the level has been completed.</param>
         /// <param name="levelName">The optional name of the level.</param>
         /// <param name="score">Final score if the level was won.</param>
         /// <param name="time">Elapsed time in seconds if the level was won.</param>
-        public void SetLevelPresence(int pack, int level, int stars, bool isWon = false, string levelName = null, int? score = null, int? time = null)
+        public void SetLevelPresence(int pack, int level, int stars, int starCount, bool isWon = false, string levelName = null, int? score = null, int? time = null)
         {
             DiscordIpcClient client = Volatile.Read(ref _client);
             if (client == null || !IsRpcEnabled || !client.IsConnected || Application.GetString($"BOX{pack + 1}_LABEL", forceEnglish: true) == null)
@@ -138,7 +139,7 @@ namespace CutTheRopeDX.Helpers
                 return;
             }
 
-            string currentStars = $"⭐ {stars}/3";
+            string currentStars = $"⭐ {stars}/{starCount}";
             string state = currentStars;
 
             if (isWon)

@@ -68,20 +68,6 @@ namespace CutTheRopeDX.GameMain
             back.FillStartAtRowColumnRowsColumnswithTile(0, 0, 1, 1, 0);
             // Use internal-resolution scale rather than a fixed multiplier.
             UpdateBackgroundScale();
-            for (int i = 0; i < 3; i++)
-            {
-                const int HudUiStarFirstQuad = 1;
-                const int HudUiStarLastQuad = 11;
-                hudStar[i] = Animation.Animation_createWithResID(Resources.Img.HudUi);
-                hudStar[i].SetDrawQuad(HudUiStarFirstQuad);
-                _ = hudStar[i].AddAnimationDelayLoopFirstLast(0.05f, Timeline.LoopType.TIMELINE_NO_LOOP, HudUiStarFirstQuad, HudUiStarLastQuad);
-                hudStar[i].SetPauseAtIndexforAnimation(10, 0);
-                int starSize = hudStar[i].width;
-                hudStar[i].anchor = 18;
-                hudStar[i].x = (starSize * i) + (starSize / 2) + Canvas.xOffsetScaled;
-                hudStar[i].y = hudStar[i].height / 2;
-                _ = AddChild(hudStar[i]);
-            }
             for (int j = 0; j < 5; j++)
             {
                 fingerCuts[j] = [];
